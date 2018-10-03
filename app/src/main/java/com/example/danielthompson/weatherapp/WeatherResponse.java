@@ -14,6 +14,8 @@ public class WeatherResponse {
         public Double temperature;
         public Double pressure;
         public Double humidity;
+        public int time;
+        public int sunsetTime;
 
         @SerializedName("precipProbability")
         public Double chanceOfRain;

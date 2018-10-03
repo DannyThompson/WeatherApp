@@ -1,4 +1,4 @@
-package com.example.danielthompson.weatherapp.services.activities;
+package com.example.danielthompson.weatherapp.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,19 +8,17 @@ import android.widget.TextView;
 
 import com.example.danielthompson.weatherapp.R;
 
-import java.util.Locale;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-import static com.example.danielthompson.weatherapp.services.activities.SearchActivity.CITY_KEY;
-import static com.example.danielthompson.weatherapp.services.activities.SearchActivity.HUMIDITY_KEY;
-import static com.example.danielthompson.weatherapp.services.activities.SearchActivity.PRESSURE_KEY;
-import static com.example.danielthompson.weatherapp.services.activities.SearchActivity.RAIN_CHANCE_KEY;
-import static com.example.danielthompson.weatherapp.services.activities.SearchActivity.SUMMARY_KEY;
-import static com.example.danielthompson.weatherapp.services.activities.SearchActivity.SUNSET_KEY;
-import static com.example.danielthompson.weatherapp.services.activities.SearchActivity.TEMP_KEY;
-import static com.example.danielthompson.weatherapp.services.activities.SearchActivity.TIME_KEY;
+import static com.example.danielthompson.weatherapp.activities.SearchActivity.CITY_KEY;
+import static com.example.danielthompson.weatherapp.activities.SearchActivity.HUMIDITY_KEY;
+import static com.example.danielthompson.weatherapp.activities.SearchActivity.PRESSURE_KEY;
+import static com.example.danielthompson.weatherapp.activities.SearchActivity.RAIN_CHANCE_KEY;
+import static com.example.danielthompson.weatherapp.activities.SearchActivity.SUMMARY_KEY;
+import static com.example.danielthompson.weatherapp.activities.SearchActivity.SUNSET_KEY;
+import static com.example.danielthompson.weatherapp.activities.SearchActivity.TEMP_KEY;
+import static com.example.danielthompson.weatherapp.activities.SearchActivity.TIME_KEY;
 
 public class WeatherResultActivity extends AppCompatActivity {
 

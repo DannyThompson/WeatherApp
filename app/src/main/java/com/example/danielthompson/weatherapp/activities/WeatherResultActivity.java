@@ -37,7 +37,7 @@ public class WeatherResultActivity extends AppCompatActivity {
     @BindView(R.id.chanceOfRain)
     TextView chanceOfRain;
 
-    //Since this API has no short summart such as "Rain/Cloudy/Sunny/etc." this fulfills that requirement.
+    //Since this API has no short summary such as "Rain/Cloudy/Sunny/etc." this fulfills that requirement.
     @BindView(R.id.summary)
     TextView summary;
 

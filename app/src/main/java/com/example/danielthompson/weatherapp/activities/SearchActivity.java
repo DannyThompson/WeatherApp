@@ -1,8 +1,12 @@
 package com.example.danielthompson.weatherapp.activities;
 
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.location.Address;
 import android.location.Geocoder;
+import android.location.Location;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -12,7 +16,11 @@ import android.widget.Toast;
 
 import com.example.danielthompson.weatherapp.R;
 import com.example.danielthompson.weatherapp.WeatherResponse;
+import com.example.danielthompson.weatherapp.WeatherServiceHandler;
 import com.example.danielthompson.weatherapp.services.WeatherService;
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.tasks.OnSuccessListener;
 
 import java.util.List;
 
@@ -47,8 +55,9 @@ public class SearchActivity extends AppCompatActivity {
     @BindView(R.id.citySearch)
     EditText citySearch;
 
-    String defaultSearchText;
+    private String defaultSearchText;
 
+    private WeatherServiceHandler weatherServiceHandler;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,6 +67,7 @@ public class SearchActivity extends AppCompatActivity {
         Timber.plant(new Timber.DebugTree());
 
         defaultSearchText = getResources().getString(R.string.search_hint);
+        weatherServiceHandler = new WeatherServiceHandler(this);
     }
 
     @OnClick(R.id.citySearch)
@@ -70,77 +80,20 @@ public class SearchActivity extends AppCompatActivity {
 
     @OnClick(R.id.getWeather)
     public void onGetWeatherClick() {
-        String locality = citySearch.getText().toString();
-        Double latitude = Double.MAX_VALUE;
-        Double longitude = Double.MAX_VALUE;
-
-        if (!locality.equals("") && !locality.equals(defaultSearchText)) {
-            Geocoder coder = new Geocoder(this);
-            List<Address> address;
-
-            try {
-                address = coder.getFromLocationName(locality, 5);
-                Address location = address.get(0);
-                latitude = location.getLatitude();
-                longitude = location.getLongitude();
-                if (TextUtils.isDigitsOnly(locality)) {
-                    locality = location.getLocality();
-                }
-
-            } catch (Exception e) { //Catch exception, and let user know to try again.
-                Toast toast = Toast.makeText(SearchActivity.this,
-                        "No data available for query. Try again.",
-                        Toast.LENGTH_SHORT);
-                toast.setGravity(Gravity.CENTER, 0, 0);
-                toast.show();
-
-                Timber.d(e, "%s: Error retrieving city data.", TAG);
-            }
-        }
-
-        if (latitude != Double.MAX_VALUE && longitude != Double.MAX_VALUE) {
-            callWeatherService(latitude, longitude, locality);
-        }
+        weatherServiceHandler.getWeather(citySearch.getText().toString(), defaultSearchText);
     }
 
     @OnClick(R.id.locationSearch)
     public void onLocationClick() {
-       //Todo: allow for getting of location
+        weatherServiceHandler.getLocation();
     }
 
-    public void callWeatherService(Double lat, Double lon, final String locality) {
-        Timber.d("%s: calling weather service", TAG);
-
-        String latlon = lat.toString() + "," + lon.toString();
-
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(API_BASE)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-
-        WeatherService weatherService = retrofit.create(WeatherService.class);
-        Call<WeatherResponse> weather = weatherService.getWeather(latlon);
-
-        weather.enqueue(new Callback<WeatherResponse>() {
-            @Override
-            public void onResponse(Call<WeatherResponse> call, Response<WeatherResponse> response) {
-                if (response.isSuccessful()) {
-                    WeatherResponse body = response.body();
-                    if (body != null && body.details != null) {
-                        getResultsActivity(body.details, locality);
-                    }
-                }
-            }
-
-            @Override
-            public void onFailure(Call<WeatherResponse> call, Throwable t) {
-                Timber.d("%s: Error getting weather response.", TAG);
-            }
-        });
-
+    public void setCitySearchText(String text) {
+        citySearch.setText(text);
     }
 
-    public void getResultsActivity(WeatherResponse.WeatherDetails details, String locality) {
+
+    public void startResultsActivity(WeatherResponse.WeatherDetails details, String locality) {
         Intent intent = new Intent(this, WeatherResultActivity.class);
 
         intent.putExtra(TEMP_KEY, details.temperature);

@@ -80,9 +80,9 @@ public class WeatherResultActivity extends AppCompatActivity {
 
             setResultBackground(intent.getIntExtra(TIME_KEY, 0) * 1000L,
                     intent.getStringExtra(TIME_ZONE_KEY));
-
-            showActionBar();
         }
+
+        showActionBar();
     }
 
     /**

@@ -3,8 +3,6 @@ package com.example.danielthompson.weatherapp.services;
 import android.location.Address;
 import android.location.Geocoder;
 import android.text.TextUtils;
-import android.view.Gravity;
-import android.widget.Toast;
 
 import com.example.danielthompson.weatherapp.activities.SearchActivity;
 import com.example.danielthompson.weatherapp.provider.LocationProvider;

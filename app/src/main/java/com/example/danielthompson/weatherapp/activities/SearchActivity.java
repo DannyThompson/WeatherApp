@@ -34,7 +34,6 @@ public class SearchActivity extends AppCompatActivity {
     public static final String TIME_KEY = "time";
     public static final String TIME_ZONE_KEY = "timezone";
 
-
     @BindView(R.id.citySearch)
     EditText citySearch;
 
@@ -61,6 +60,9 @@ public class SearchActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Upon clicking "Get Weather, this will have the service handler obtain the data for the weather.
+     */
     @OnClick(R.id.getWeather)
     public void onGetWeatherClick() {
         Toast toast = Toast.makeText(this,
@@ -74,6 +76,11 @@ public class SearchActivity extends AppCompatActivity {
     @OnClick(R.id.locationSearch)
     public void onLocationClick() {
         weatherServiceHandler.getLocation();
+    }
+
+    @OnClick(R.id.clear)
+    public void onClickClear() {
+        citySearch.getText().clear();
     }
 
     public void setCitySearchText(String text) {

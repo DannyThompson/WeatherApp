@@ -1,8 +1,12 @@
 package com.example.danielthompson.weatherapp.activities;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.view.LayoutInflater;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -23,6 +27,9 @@ import static com.example.danielthompson.weatherapp.activities.SearchActivity.TE
 import static com.example.danielthompson.weatherapp.activities.SearchActivity.TIME_KEY;
 import static com.example.danielthompson.weatherapp.activities.SearchActivity.TIME_ZONE_KEY;
 
+/**
+ * Activity to display the results of the weather search.
+ */
 public class WeatherResultActivity extends AppCompatActivity {
 
     @BindView(R.id.cityName)
@@ -74,7 +81,24 @@ public class WeatherResultActivity extends AppCompatActivity {
             setResultBackground(intent.getIntExtra(TIME_KEY, 0) * 1000L,
                     intent.getStringExtra(TIME_ZONE_KEY));
 
+            showActionBar();
         }
+    }
+
+    /**
+     * Use a custom actionbar so a backarrow can be used.
+     */
+    private void showActionBar() {
+        LayoutInflater inflator = (LayoutInflater) this
+                .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        View v = inflator.inflate(R.layout.custom_actionbar, null);
+        v.findViewById(R.id.backButton).setOnClickListener(l -> onBackPressed());
+
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setDisplayShowHomeEnabled(false);
+        actionBar.setDisplayShowCustomEnabled(true);
+        actionBar.setDisplayShowTitleEnabled(false);
+        actionBar.setCustomView(v);
     }
 
     /**

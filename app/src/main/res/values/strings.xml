@@ -3,4 +3,5 @@
     <string name="search_hint">Enter a city or postal code</string>
     <string name="text_get_weather">Get Weather</string>
     <string name="weather_by_city">Search Weather by city </string>
+    <string name="clear">Clear search</string>
 </resources>

@@ -13,8 +13,6 @@ import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationResult;
 import com.google.android.gms.location.LocationServices;
 
-import timber.log.Timber;
-
 /**
  * Class that is used to return the user's location.
  * Created for further abstraction and separation-of-concerns.
@@ -24,8 +22,6 @@ public class LocationProvider {
 
     private SearchActivity activity;
     private Geocoder coder;
-    private FusedLocationProviderClient providerClient;
-
 
     public LocationProvider(SearchActivity activity, Geocoder coder) {
         this.activity = activity;
@@ -53,8 +49,11 @@ public class LocationProvider {
         };
     }
 
+    /**
+     * Verify that location permissions were granted, and then obtain the location of the user.
+     */
     public void getLocation() {
-        providerClient = LocationServices.getFusedLocationProviderClient(activity);
+        FusedLocationProviderClient providerClient = LocationServices.getFusedLocationProviderClient(activity);
 
         if (ContextCompat.checkSelfPermission(activity, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(activity, new String[]{android.Manifest.permission.ACCESS_COARSE_LOCATION}, 0);

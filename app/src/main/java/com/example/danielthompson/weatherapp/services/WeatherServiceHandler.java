@@ -96,7 +96,7 @@ public class WeatherServiceHandler {
                     WeatherResponse body = response.body();
 
                     if (body != null && body.details != null) {
-                        activity.startResultsActivity(body.details, locality);
+                        activity.startResultsActivity(body.details, body.timezone, locality);
                     }
                 }
             }

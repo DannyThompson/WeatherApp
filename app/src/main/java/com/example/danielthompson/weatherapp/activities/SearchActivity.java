@@ -32,6 +32,8 @@ public class SearchActivity extends AppCompatActivity {
     public static final String PRESSURE_KEY = "pressure";
     public static final String CITY_KEY = "city";
     public static final String TIME_KEY = "time";
+    public static final String TIME_ZONE_KEY = "timezone";
+
 
     @BindView(R.id.citySearch)
     EditText citySearch;
@@ -84,7 +86,7 @@ public class SearchActivity extends AppCompatActivity {
      * @param details  - The details of the weather (temp, humidity, etc.) retrieved from the API.
      * @param locality - The city that the weather is being requested for.
      */
-    public void startResultsActivity(WeatherResponse.WeatherDetails details, String locality) {
+    public void startResultsActivity(WeatherResponse.WeatherDetails details, String timezone, String locality) {
         Intent intent = new Intent(this, WeatherResultActivity.class);
 
         intent.putExtra(TEMP_KEY, details.temperature);
@@ -94,6 +96,7 @@ public class SearchActivity extends AppCompatActivity {
         intent.putExtra(RAIN_CHANCE_KEY, details.chanceOfRain);
         intent.putExtra(CITY_KEY, locality);
         intent.putExtra(TIME_KEY, details.time);
+        intent.putExtra(TIME_ZONE_KEY, timezone);
 
         startActivity(intent);
     }

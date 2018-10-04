@@ -8,6 +8,8 @@ import com.google.gson.annotations.SerializedName;
  */
 public class WeatherResponse {
 
+    public String timezone;
+
     @SerializedName("currently")
     @Expose
     public WeatherDetails details = new WeatherDetails();

@@ -9,6 +9,7 @@ import android.widget.TextView;
 import com.example.danielthompson.weatherapp.R;
 
 import java.util.Calendar;
+import java.util.TimeZone;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -20,6 +21,7 @@ import static com.example.danielthompson.weatherapp.activities.SearchActivity.RA
 import static com.example.danielthompson.weatherapp.activities.SearchActivity.SUMMARY_KEY;
 import static com.example.danielthompson.weatherapp.activities.SearchActivity.TEMP_KEY;
 import static com.example.danielthompson.weatherapp.activities.SearchActivity.TIME_KEY;
+import static com.example.danielthompson.weatherapp.activities.SearchActivity.TIME_ZONE_KEY;
 
 public class WeatherResultActivity extends AppCompatActivity {
 
@@ -69,7 +71,8 @@ public class WeatherResultActivity extends AppCompatActivity {
             chanceOfRain.setText(String.format("Chance of rain: %1$,.2f%%", intent.getDoubleExtra(RAIN_CHANCE_KEY, 0.0)));
             summary.setText(intent.getStringExtra(SUMMARY_KEY));
 
-            setResultBackground(intent.getIntExtra(TIME_KEY, 0) * 1000L);
+            setResultBackground(intent.getIntExtra(TIME_KEY, 0) * 1000L,
+                    intent.getStringExtra(TIME_ZONE_KEY));
 
         }
     }
@@ -86,9 +89,10 @@ public class WeatherResultActivity extends AppCompatActivity {
      *
      * @param currentHourLong - The current hour in the given location in unix time
      */
-    private void setResultBackground(long currentHourLong) {
+    private void setResultBackground(long currentHourLong, String timezone) {
         Calendar time = Calendar.getInstance();
         time.setTimeInMillis(currentHourLong);
+        time.setTimeZone(TimeZone.getTimeZone(timezone));
         int hour = time.get(Calendar.HOUR_OF_DAY); //Hour of day in 24hour time.
 
         //If its later than 7pm or earlier than 7am, show the 'night' background

@@ -6,9 +6,15 @@ Additionaly, you will notice a location icon that can be used and, if granted pe
 in which the user is in. Make sure location permissions are on.
 
 In some cases, if there are multiple cities in the country with the same name, for example, a search will yield no results.
-This functionality is intended to be fixed in the future, allowing the user to narrow the search down to state.
+You can try to input the state as well in format <City, State Abbrev.>. In many cases, it will provide results.
+This was tested using my hometown of Brentwood, CA.
+"Brentwood" yielded no results, but "Brentwood, CA" did.
+This was further tested by verifying results with its zipcode of 94513,
+and also contrasting with "Brentwood, TN" and its zipcode of 37027.
+Be careful, however. "Brentwood, NV" also yielded results, even though Nevada does not have a city of Brentwood.
+
 For now, if a search yields no results, searching by postal code _should_ yield the proper results. 
-This was tested using my hometown of Brentwood, CA. "Brentwood" yielded no results, but its zipcode of 94513 did.
+This was again tested using my hometown of Brentwood, CA. "Brentwood" yielded no results, but its zipcode of 94513 did.
 
 Once the user has input a city a they can either: clear the text, or hit "get weather". 
 This will then query the API (uses API from: https://darksky.net).

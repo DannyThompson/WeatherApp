@@ -1,7 +1,5 @@
 package com.example.danielthompson.weatherapp.services;
 
-import com.example.danielthompson.weatherapp.WeatherResponse;
-
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Path;

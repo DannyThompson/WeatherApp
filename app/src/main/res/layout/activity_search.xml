@@ -9,7 +9,7 @@
 
     <EditText
         android:layout_width="300dp"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
         android:id="@+id/citySearch"
         android:inputType="text"
         android:text="@string/search_hint"
@@ -20,8 +20,8 @@
         android:layout_marginTop="100dp"/>
 
     <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
         android:src="@drawable/icn_location"
         android:id="@+id/locationSearch"
         app:layout_constraintLeft_toLeftOf="parent"

@@ -1,8 +1,11 @@
-package com.example.danielthompson.weatherapp;
+package com.example.danielthompson.weatherapp.services;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+/**
+ * Class containing the data from the call to the weather service.
+ */
 public class WeatherResponse {
 
     @SerializedName("currently")
@@ -15,7 +18,6 @@ public class WeatherResponse {
         public Double pressure;
         public Double humidity;
         public int time;
-        public int sunsetTime;
 
         @SerializedName("precipProbability")
         public Double chanceOfRain;

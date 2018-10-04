@@ -1,37 +1,19 @@
 package com.example.danielthompson.weatherapp.activities;
 
 import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.location.Address;
-import android.location.Geocoder;
-import android.location.Location;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.view.Gravity;
 import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.danielthompson.weatherapp.R;
-import com.example.danielthompson.weatherapp.WeatherResponse;
-import com.example.danielthompson.weatherapp.WeatherServiceHandler;
-import com.example.danielthompson.weatherapp.services.WeatherService;
-import com.google.android.gms.location.FusedLocationProviderClient;
-import com.google.android.gms.location.LocationServices;
-import com.google.android.gms.tasks.OnSuccessListener;
-
-import java.util.List;
+import com.example.danielthompson.weatherapp.services.WeatherResponse;
+import com.example.danielthompson.weatherapp.services.WeatherServiceHandler;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 import timber.log.Timber;
 
 /**
@@ -50,7 +32,6 @@ public class SearchActivity extends AppCompatActivity {
     public static final String PRESSURE_KEY = "pressure";
     public static final String CITY_KEY = "city";
     public static final String TIME_KEY = "time";
-    public static final String SUNSET_KEY = "sunset";
 
     @BindView(R.id.citySearch)
     EditText citySearch;
@@ -80,6 +61,11 @@ public class SearchActivity extends AppCompatActivity {
 
     @OnClick(R.id.getWeather)
     public void onGetWeatherClick() {
+        Toast toast = Toast.makeText(this,
+                "Retrieving weather data.",
+                Toast.LENGTH_SHORT);
+        toast.setGravity(Gravity.CENTER, 0, 0);
+        toast.show();
         weatherServiceHandler.getWeather(citySearch.getText().toString(), defaultSearchText);
     }
 
@@ -92,7 +78,12 @@ public class SearchActivity extends AppCompatActivity {
         citySearch.setText(text);
     }
 
-
+    /**
+     * Start the WeatherResultActivity with the details from the WeatherResponse.
+     *
+     * @param details  - The details of the weather (temp, humidity, etc.) retrieved from the API.
+     * @param locality - The city that the weather is being requested for.
+     */
     public void startResultsActivity(WeatherResponse.WeatherDetails details, String locality) {
         Intent intent = new Intent(this, WeatherResultActivity.class);
 
@@ -100,11 +91,26 @@ public class SearchActivity extends AppCompatActivity {
         intent.putExtra(SUMMARY_KEY, details.currentCondition);
         intent.putExtra(HUMIDITY_KEY, details.humidity);
         intent.putExtra(PRESSURE_KEY, details.pressure);
-        intent.putExtra(RAIN_CHANCE_KEY, Math.floor(details.chanceOfRain));
+        intent.putExtra(RAIN_CHANCE_KEY, details.chanceOfRain);
         intent.putExtra(CITY_KEY, locality);
         intent.putExtra(TIME_KEY, details.time);
-        intent.putExtra(SUNSET_KEY, details.sunsetTime);
 
         startActivity(intent);
+    }
+
+    /**
+     * Show a toast, notifying the user that no data was retrieved, for one reason or another.
+     * Then logs the exception.
+     *
+     * @param e - Exception
+     */
+    public void errorRetrivingDataToast(Exception e) {
+        Toast toast = Toast.makeText(this,
+                "No data available for query. Try again.",
+                Toast.LENGTH_SHORT);
+        toast.setGravity(Gravity.CENTER, 0, 0);
+        toast.show();
+
+        Timber.d(e, "%s: Error retrieving city data.", TAG);
     }
 }

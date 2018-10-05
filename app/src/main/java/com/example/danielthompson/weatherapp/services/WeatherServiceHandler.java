@@ -52,7 +52,7 @@ public class WeatherServiceHandler {
                 }
 
             } catch (Exception e) { //Catch exception, and let user know to try again.
-                activity.errorRetrivingDataToast(e);
+                activity.runOnUiThread(() -> activity.errorRetrivingDataToast(e));
             }
         }
 

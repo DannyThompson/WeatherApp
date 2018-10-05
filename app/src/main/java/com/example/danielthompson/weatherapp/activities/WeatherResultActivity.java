@@ -75,7 +75,8 @@ public class WeatherResultActivity extends AppCompatActivity {
             temp.setText(String.format("%d°", Math.round(intent.getDoubleExtra(TEMP_KEY, 0.0))));
             pressure.setText(String.format("Pressure: %1$,.2f hPa", intent.getDoubleExtra(PRESSURE_KEY, 0.0)));
             humidity.setText(String.format("Humidity: %1$,.2f%%", intent.getDoubleExtra(HUMIDITY_KEY, 0.0)));
-            chanceOfRain.setText(String.format("Chance of rain: %1$,.2f%%", intent.getDoubleExtra(RAIN_CHANCE_KEY, 0.0)));
+            //Note: Rain is a probability. So it is out of a total of 1.
+            chanceOfRain.setText(String.format("Rain probability: %1$,.2f", intent.getDoubleExtra(RAIN_CHANCE_KEY, 0.0)));
             summary.setText(intent.getStringExtra(SUMMARY_KEY));
 
             setResultBackground(intent.getIntExtra(TIME_KEY, 0) * 1000L,

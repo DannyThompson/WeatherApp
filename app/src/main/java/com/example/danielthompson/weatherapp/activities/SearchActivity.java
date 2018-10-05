@@ -75,17 +75,10 @@ public class SearchActivity extends AppCompatActivity {
      */
     @OnClick(R.id.getWeather)
     public void onGetWeatherClick() {
-        Toast toast = Toast.makeText(this,
-                "Retrieving weather data.",
-                Toast.LENGTH_SHORT);
-        toast.setGravity(Gravity.CENTER, 0, 0);
-        toast.show();
-
         //The API call was causing some frames to be skipped, so run this on a new thread
         //Could potential be improved with RxJava in the future?
         new Thread(() ->  weatherServiceHandler.getWeather(citySearch.getText().toString(),
                 defaultSearchText)).start();
-
     }
 
     @OnClick(R.id.locationSearch)

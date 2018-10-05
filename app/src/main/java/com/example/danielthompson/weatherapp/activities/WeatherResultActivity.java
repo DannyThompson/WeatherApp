@@ -96,7 +96,6 @@ public class WeatherResultActivity extends AppCompatActivity {
         v.findViewById(R.id.backButton).setOnClickListener(l -> onBackPressed());
 
         ActionBar actionBar = getSupportActionBar();
-        actionBar.setDisplayShowHomeEnabled(false);
         actionBar.setDisplayShowCustomEnabled(true);
         actionBar.setDisplayShowTitleEnabled(false);
         actionBar.setCustomView(v);

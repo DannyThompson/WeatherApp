@@ -12,6 +12,7 @@ This was tested using my hometown of Brentwood, CA.
 This was further tested by verifying results with its zipcode of 94513,
 and also contrasting with "Brentwood, TN" and its zipcode of 37027.
 Be careful, however. "Brentwood, NV" also yielded results, even though Nevada does not have a city of Brentwood.
+I will try to track down the cause and push a fix soon.
 
 For now, if a search yields no results, searching by postal code _should_ yield the proper results. 
 This was again tested using my hometown of Brentwood, CA. "Brentwood" yielded no results, but its zipcode of 94513 did.

@@ -25,8 +25,8 @@ import timber.log.Timber;
  */
 
 public class SearchActivity extends AppCompatActivity {
-    public static final String API_BASE = "https://api.darksky.net/forecast/35ea4a8e06ddf0e326155550860ee7da/";
-    public static final String TAG = "SearchActivityTag";
+    private static final String API_BASE = "https://api.darksky.net/forecast/35ea4a8e06ddf0e326155550860ee7da/";
+    private static final String TAG = "SearchActivity";
     public static final String TEMP_KEY = "temp";
     public static final String RAIN_CHANCE_KEY = "rain";
     public static final String SUMMARY_KEY = "summary";

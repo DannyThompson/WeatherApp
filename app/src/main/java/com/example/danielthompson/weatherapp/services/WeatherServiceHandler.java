@@ -15,14 +15,13 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import timber.log.Timber;
 
-import static com.example.danielthompson.weatherapp.activities.SearchActivity.TAG;
-
 /**
  * Handles the workings of the WeatherService and actual retrieval of the weather data.
  * Also uses a location provider if the user wishes to use the location button.
  */
 
 public class WeatherServiceHandler {
+    private static final String TAG = "WeatherServiceHandler";
 
     private SearchActivity activity;
     private Geocoder coder;

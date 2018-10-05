@@ -13,10 +13,8 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 import timber.log.Timber;
 
-import static com.example.danielthompson.weatherapp.activities.SearchActivity.API_BASE;
 import static com.example.danielthompson.weatherapp.activities.SearchActivity.TAG;
 
 /**
@@ -28,10 +26,12 @@ public class WeatherServiceHandler {
 
     private SearchActivity activity;
     private Geocoder coder;
+    private Retrofit retrofit;
 
-    public WeatherServiceHandler(SearchActivity activity) {
+    public WeatherServiceHandler(SearchActivity activity, Retrofit retrofit) {
         this.activity = activity;
         coder = new Geocoder(activity);
+        this.retrofit = retrofit;
     }
 
     public void getWeather(String cityText, String defaultSearchText) {
@@ -74,15 +74,10 @@ public class WeatherServiceHandler {
      * @param lon      - Longitude of the city being Searched.
      * @param locality - The city name, or, possibly the zipcode which will be converted to city name.
      */
-    private void callWeatherService(Double lat, Double lon, final String locality) {
+    private void callWeatherService(Double lat, Double lon, String locality) {
         Timber.d("%s: calling weather service", TAG);
 
         String latlon = lat.toString() + "," + lon.toString();
-
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(API_BASE)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
 
         WeatherService weatherService = retrofit.create(WeatherService.class);
         Call<WeatherResponse> weather = weatherService.getWeather(latlon);

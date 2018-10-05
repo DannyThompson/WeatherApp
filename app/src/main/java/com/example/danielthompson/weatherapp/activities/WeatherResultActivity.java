@@ -65,7 +65,7 @@ public class WeatherResultActivity extends AppCompatActivity {
         if (intent != null) {
             String city = intent.getStringExtra(CITY_KEY);
 
-            //Capitalize city if it isn't already.
+            //For now, capitalize the first letter. Multiple word cities will require a different method
             if (!Character.isUpperCase(city.charAt(0))) {
                 city = city.substring(0, 1).toUpperCase() + city.substring(1);
             }

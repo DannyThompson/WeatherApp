@@ -14,6 +14,8 @@ import com.example.danielthompson.weatherapp.services.WeatherServiceHandler;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 import timber.log.Timber;
 
 /**
@@ -48,8 +50,16 @@ public class SearchActivity extends AppCompatActivity {
         ButterKnife.bind(this);
         Timber.plant(new Timber.DebugTree());
 
+
         defaultSearchText = getResources().getString(R.string.search_hint);
-        weatherServiceHandler = new WeatherServiceHandler(this);
+
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(API_BASE)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        weatherServiceHandler = new WeatherServiceHandler(this, retrofit);
+
     }
 
     @OnClick(R.id.citySearch)
@@ -70,7 +80,12 @@ public class SearchActivity extends AppCompatActivity {
                 Toast.LENGTH_SHORT);
         toast.setGravity(Gravity.CENTER, 0, 0);
         toast.show();
-        weatherServiceHandler.getWeather(citySearch.getText().toString(), defaultSearchText);
+
+        //The API call was causing some frames to be skipped, so run this on a new thread
+        //Could potential be improved with RxJava in the future?
+        new Thread(() ->  weatherServiceHandler.getWeather(citySearch.getText().toString(),
+                defaultSearchText)).start();
+
     }
 
     @OnClick(R.id.locationSearch)
